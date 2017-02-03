@@ -16,12 +16,10 @@
         <div class="header">Results</div>
         <pre id="results">Your results will appear here.</pre>
     </div>
-
 </div>
 
 <script>
     (function () {
-
         let entityMap = {
             '&': '&amp;',
             '<': '&lt;',
@@ -85,18 +83,14 @@
                     "\n" +
                     "wow, this is a nasty example, isn't it?\n" +
                     "Let's add one last line, this one does not have \\n";
-
             }
 
             document.getElementById("button-ex2").onclick = function () {
                 txtArea.value = "word1 word22 word333 word4444 word55555 word4444 word333 word22 word1";
             }
-
-
         }
-
+        
         window.onload = onload();
-
     })();
 </script>
 <script src="code.js"></script>
