@@ -13,7 +13,5 @@ function getStats(txt) {
         longestWords: ["xxxxxxxxx", "123444444"],
         mostFrequentWords: [ "hello(7)", "world(1)" ]
     };
-
 }
 
-let x = 7;
