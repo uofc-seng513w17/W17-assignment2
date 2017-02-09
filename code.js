@@ -13,7 +13,7 @@ function getStats(txt) {
         maxLineLength: maxLineLength(txt),
         palindromes: palindromes(txt),
         longestWords: longestWords(txt),
-        mostFrequentWords: [ "hello(7)", "world(1)" ]
+        mostFrequentWords: mostFrequentWords(txt)
     };
 }
 
@@ -101,7 +101,8 @@ function longestWords(txt) {
     cleaned = cleaned.replace(/ +(?= )/g,'');
     cleaned = cleaned.trim();
     cleaned = cleaned.split(" ");
-    return cleaned.sort(sortFunction);
+    cleaned = cleaned.sort(sortFunction);
+    return cleaned.slice(0,10);
 }
 
 function sortFunction(a, b) {
@@ -118,6 +119,34 @@ function sortFunction(a, b) {
     } else {
         return 1;
     }
+}
+
+function mostFrequentWords(txt) {
+    cleaned = cleanInput(txt);
+    cleaned = cleaned.toLowerCase();
+    cleaned = cleaned.replace(/ +(?= )/g,'');
+    cleaned = cleaned.trim();
+    cleaned = cleaned.split(" ");
+
+    var wordCounts = { };
+    for(var i = 0; i < cleaned.length; i++) {
+        wordCounts[cleaned[i]] = (wordCounts[cleaned[i]] || 0) + 1;
+    }
+
+    var sortable = [];
+    for (var word in wordCounts) {
+        sortable.push([word, wordCounts[word]]);
+    }
+
+    sortable.sort(function(a,b){
+        return b[1]-a[1];
+    })
+
+    var ret = [];
+    for (var index = 0; index < sortable.length; index++) {
+        ret.push(sortable[index][0] + "(" + sortable[index][1] + ")");
+    }
+    return ret;
 }
 
 function cleanInput(txt) {
