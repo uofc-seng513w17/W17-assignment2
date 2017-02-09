@@ -146,12 +146,16 @@ function mostFrequentWords(txt) {
     for (var index = 0; index < sortable.length; index++) {
         ret.push(sortable[index][0] + "(" + sortable[index][1] + ")");
     }
-    return ret;
+    return ret.slice(0,10);
+    //TODO: have to get this alphabetically sorted first....
 }
 
 function cleanInput(txt) {
     cleaned = txt.replace(/(\r\n|\n|\r)/gm," ");
     cleaned = cleaned.replace(/(\r\t|\t|\r)/gm," ");
-    return cleaned.replace(/[|&;$%@"<>()+,#.!^']/g, " ");
+    cleaned = cleaned.toLowerCase();
+    cleaned = cleaned.replace(/ +(?= )/g,'');
+    cleaned = cleaned.trim();
+    return cleaned.replace(/[:|&;$%@"<>()+,#.!^']/g, " ");
 }
 
