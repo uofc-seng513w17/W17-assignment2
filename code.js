@@ -11,8 +11,8 @@ function getStats(txt) {
         nNonEmptyLines: aNonEmptyLines(txt),
         averageWordLength: averageWordLength(txt),
         maxLineLength: maxLineLength(txt),
-        palindromes: ["12321", "kayak", "mom"],
-        longestWords: ["xxxxxxxxx", "123444444"],
+        palindromes: palindromes(txt),
+        longestWords: longestWords(txt),
         mostFrequentWords: [ "hello(7)", "world(1)" ]
     };
 }
@@ -67,8 +67,62 @@ function maxLineLength(txt) {
     return max;
 }
 
+function palindromes(txt) {
+    var palindromes = [];
+    cleaned = cleanInput(txt);
+    cleaned = cleaned.replace(/ +(?= )/g,'');
+    cleaned = cleaned.split(" ");
+    for(index = 0; index < cleaned.length; index++){
+        palindrome = true;
+        for(charsat = 0; charsat < (cleaned[index].length/2); charsat++) {
+            if (cleaned[index].length <= 2){
+                palindrome = false;
+                break;
+            }
+            if (cleaned[index].charAt(charsat) != cleaned[index].charAt(cleaned[index].length-charsat-1)) {
+                palindrome = false;
+                break;
+            }
+        }
+        if (palindrome == true){
+            if (cleaned[index].length > 2) {
+                palindromes.push(cleaned[index]);
+            }
+        } else {
+            palindrome = true;
+        }
+    }
+    return palindromes;
+}
+
+function longestWords(txt) {
+    cleaned = cleanInput(txt);
+    cleaned = cleaned.toLowerCase();
+    cleaned = cleaned.replace(/ +(?= )/g,'');
+    cleaned = cleaned.trim();
+    cleaned = cleaned.split(" ");
+    return cleaned.sort(sortFunction);
+}
+
+function sortFunction(a, b) {
+    if (a.length == b.length) {
+        if(a < b) {
+            return -1;
+        } else if (a > b) {
+            return 1;
+        } else {
+            return 0;
+        }
+    } else if (a.length > b.length) {
+        return -1;
+    } else {
+        return 1;
+    }
+}
+
 function cleanInput(txt) {
     cleaned = txt.replace(/(\r\n|\n|\r)/gm," ");
     cleaned = cleaned.replace(/(\r\t|\t|\r)/gm," ");
     return cleaned.replace(/[|&;$%@"<>()+,#.!^']/g, " ");
 }
+
