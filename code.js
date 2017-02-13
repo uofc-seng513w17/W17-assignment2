@@ -40,7 +40,8 @@ function aNonEmptyLines(txt) {
     splitString = txt.split("\n");
     var index, count = 0;
     for (index = 0; index < splitString.length; index++) {
-        if (nChars(splitString[index]) > 0) {
+
+        if (nChars(splitString[index].replace(/\s/g, "")) > 0) {
             count++;
         }
     }
@@ -50,8 +51,9 @@ function aNonEmptyLines(txt) {
 function averageWordLength(txt) {
     cleaned = cleanInput(txt);
     numWords = nWords(cleaned);
-    numChars = nChars(cleaned.replace(" ", "").trim());
-    return numChars/numWords;
+    numChars = nChars(cleaned.replace(/\s/g, "").trim());
+    return cleaned.replace(/\s/g, "").trim();
+    //506
 }
 
 function maxLineLength(txt) {
@@ -97,9 +99,6 @@ function palindromes(txt) {
 
 function longestWords(txt) {
     cleaned = cleanInput(txt);
-    cleaned = cleaned.toLowerCase();
-    cleaned = cleaned.replace(/ +(?= )/g,'');
-    cleaned = cleaned.trim();
     cleaned = cleaned.split(" ");
     cleaned = cleaned.sort(sortFunction);
     return cleaned.slice(0,10);
@@ -156,6 +155,6 @@ function cleanInput(txt) {
     cleaned = cleaned.toLowerCase();
     cleaned = cleaned.replace(/ +(?= )/g,'');
     cleaned = cleaned.trim();
-    return cleaned.replace(/[:|&;$%@"<>()+,#.!^']/g, " ");
+    return cleaned.replace(/[:|&;$%@"<?>()+,#.!^']/g, " ");
 }
 
